@@ -4,6 +4,7 @@ body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  
 }
 
 .center-form {
@@ -29,3 +30,7 @@ body {
   margin-top: 1rem;
   color: black;
 }
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;

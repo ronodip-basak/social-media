@@ -1,5 +1,4 @@
 import '../styles/globals.scss'
-import '../styles/bootstrap/bootstrap.scss'
 import Head from 'next/head'
 import {  RecoilRoot,  atom,  selector,  useRecoilState,  useRecoilValue,} from 'recoil';
 import Nav from '../components/navigation/Nav';

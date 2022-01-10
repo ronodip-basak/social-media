@@ -1,3 +1,22 @@
 .container {
-  padding: 0rem;
+    padding: 0rem;
+    background-color: rgba(0, 0, 0, 0.15);
+    margin-top: 1rem;
+}
+
+.centerPanel {
+    width: 80%;
+    margin-left: 10%;
+    margin-right: 10%;
+    
+}
+
+.leftPanel {
+    width: 0px;
+    overflow: hidden;
+}
+
+.rightPanel {
+    width: 0px;
+    overflow: hidden;
 }

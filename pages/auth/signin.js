@@ -22,7 +22,7 @@ export default function signIn(){
             return;
         }
         const response = await promise.json()
-        console.log(response)
+        window.location.href = '/';
     }
     const formik = useFormik({
         validationSchema: SigninSchema, 
@@ -33,45 +33,32 @@ export default function signIn(){
         onSubmit: handleFormSubmit
     })
     return (
-        <div className="container">
-            
-            <div className="center-form">
-                <div>
-                
-                    <form onSubmit={formik.handleSubmit}>
-                        <h3>Sign In</h3>
+        <section class="w-full px-8 py-16 bg-gray-100 xl:px-8">
+            <div class="max-w-5xl mx-auto">
+                <div class="flex flex-col items-center md:flex-row">
 
-                        <div className="form-group">
-                            <label>Email</label>
-                            <input className="form-control" name="email" 
-                                onChange={formik.handleChange}
-                                onBlur={formik.handleBlur}
-                                value={formik.values.email}
-                            />
-                            {formik.errors.email && formik.touched.email ? <Warning message={formik.errors.email} /> : null}
+                    <div class="w-full space-y-5 md:w-3/5 md:pr-16">
+                        <p class="font-medium text-blue-500 uppercase">Building Businesses</p>
+                        <h2 class="text-2xl font-extrabold leading-none text-black sm:text-3xl md:text-5xl">
+                            Changing The Way People Do Business.
+                        </h2>
+                        <p class="text-xl text-gray-600 md:pr-16">Learn how to engage with your visitors and teach them about your mission. We're revolutionizing the way customers and businesses interact.</p>
+                    </div>
+
+                    <div class="w-full mt-16 md:mt-0 md:w-2/5">
+                        <div class="relative z-10 h-auto p-8 py-10 overflow-hidden bg-white border-b-2 border-gray-300 rounded-lg shadow-2xl px-7">
+                            <h3 class="mb-6 text-2xl font-medium text-center">Sign in to your Account</h3>
+                            <input type="text" name="email" class="block w-full px-4 py-3 mb-4 border border-2 border-transparent border-gray-200 rounded-lg focus:ring focus:ring-blue-500 focus:outline-none" placeholder="Email address" />
+                            <input type="password" name="password" class="block w-full px-4 py-3 mb-4 border border-2 border-transparent border-gray-200 rounded-lg focus:ring focus:ring-blue-500 focus:outline-none" placeholder="Password" />
+                            <div class="block">
+                                <button class="w-full px-3 py-4 font-medium text-white bg-blue-600 rounded-lg">Log Me In</button>
+                            </div>
+                            <p class="w-full mt-4 text-sm text-center text-gray-500">Don't have an account? <a href="#_" class="text-blue-500 underline">Sign up here</a></p>
                         </div>
-                        <div className="form-group">
-                            <label>Password</label>
-                            <input className="form-control" type="password" name="password"
-                                onChange={formik.handleChange}
-                                onBlur={formik.handleBlur}
-                                value={formik.values.password}
-                            />
-                            {formik.errors.password && formik.touched.password ? <Warning message={formik.errors.password} /> : null}
-                        </div>
-                        
-                        {error !== null && 
-                            <Danger message={error} />
-                        }
-                        <div className="form-group">
-                            
-                            <button className="form-control btn btn-primary">Sign In</button>
-                        </div>
-                        
-                    </form>
+                    </div>
+
                 </div>
             </div>
-               
-        </div>
+        </section>
     );
 }

@@ -36,11 +36,19 @@ model Post {
 
   content   String?
 
+  is_share  Boolean @default(false)
+
+  original_post_id  Int? 
+
   createdAt DateTime @default(now())
 
   updatedAt DateTime @updatedAt
 
   user      User     @relation(fields: [user_id], references: [id])
+
+  original_post Post?  @relation("Shares", fields: [original_post_id], references: [id])
+
+  shared_posts  Post[]  @relation("Shares")
 
   attachment  Attachment?
 }

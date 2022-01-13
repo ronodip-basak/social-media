@@ -17,7 +17,7 @@ export default function Home() {
         
     }
     return (
-        <section class="w-full px-8 py-16 bg-gray-100 xl:px-8 grid grid-cols-12 gap-4">
+        <section className="w-full py-4 bg-gray-100 grid grid-cols-12 gap-4">
             <div className="bg-black h-52 hidden lg:block lg:col-span-3"></div>
             <div className="col-span-12 md:col-span-9 lg:col-span-6">
                 <AddPost />

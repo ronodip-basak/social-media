@@ -1,16 +1,51 @@
 import { useState } from "react";
+import ImageUpload from "../ImageUpload";
 import Modal from "../utility/Modal";
 import PrimaryButton from "../utility/PrimaryButton";
 
 export default function AddPost(){
 
+    const [uploadedFiles, setUploadedFiles] = useState([]);
+
     const [modalOpen, setModalOpen] = useState(false);
 
-    const [files, setFiles] = useState([]);
+    const [postBody, setPostBody] = useState("");
 
-    const addFile = (event) => {
-        event.preventDefault();
-        console.log(event)
+    const [loading, setLoading] = useState(false)
+
+    const submitPost = async (e) => {
+        e.preventDefault();
+        setLoading(true)
+
+
+    }
+
+    const uploadFilesToServer = async (e) => {
+        e.preventDefault()
+        
+        for (const x in uploadedFiles) {
+            if (Object.hasOwnProperty.call(uploadedFiles, x)) {
+                const data = new FormData();
+                const file = uploadedFiles[x];
+                data.append('file', file)
+                fetch(`/api/uploadFile`, {
+                    method: "POST",
+                    body: data
+                })
+                .then((res) => res.json())
+                .then(res => {
+                    console.log(res)
+                })
+            }
+        }
+    }
+
+    const removeFileFromIndex = (index) => {
+        const newFilesList = uploadedFiles.filter((file, i) => {
+            return i != index
+        })
+
+        setUploadedFiles(newFilesList)
     }
 
     return (
@@ -40,6 +75,9 @@ export default function AddPost(){
                     id="exampleFormControlTextarea1"
                     rows="1"
                     placeholder="What's on your mind?"
+                    onChange={(e) => {
+                        setPostBody(e.target.value)
+                    }}
                 >
 
                 </textarea>
@@ -52,7 +90,7 @@ export default function AddPost(){
                     closeModal={() => {setModalOpen(false)}}
                     title="Create Post"
                 >
-                    <form>
+                    <form onSubmit={submitPost}>
                         <textarea
                             className="
                                 form-control
@@ -79,19 +117,20 @@ export default function AddPost(){
                             id="exampleFormControlTextarea1"
                             rows="3"
                             placeholder="What's on your mind?"
-                        >
-
-                        </textarea>
-                        <div 
-                            className="w-full h-44 bg-slate-200 rounded-md mb-4"
-                            onDrop={(ev) => {
-                                ev.preventDefault();
-                                alert('Done')
+                            onChange={(e) => {
+                                setPostBody(e.target.value)
+                            }}
+                            onKeyUp={(e) => {
+                                setPostBody(e.target.value)
                             }}
                         >
 
-                        </div>
-                        <PrimaryButton text="Post" />
+                        </textarea>
+                        <ImageUpload uploadedFiles={uploadedFiles} removeUploadedFile={removeFileFromIndex} setUploadedFiles={setUploadedFiles} />
+                        
+                        <PrimaryButton loading={loading} text={uploadedFiles.length < 1 && postBody == "" ? "Test" : "Post"} />
+                        
+                        
                     </form>
                 </Modal>
             }

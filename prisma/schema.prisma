@@ -13,17 +13,11 @@ datasource db {
 
 model User {
   id        Int      @id @default(autoincrement())
-
   name      String  @db.VarChar(255)
-
   email     String  @db.VarChar(255)
-
   password  String  @db.VarChar(255)
-
   createdAt DateTime @default(now())
-
   updatedAt DateTime @updatedAt
-
   posts   Post[]
 }
 
@@ -31,39 +25,25 @@ model User {
 model Post {
   
   id        Int      @id @default(autoincrement())
-
   user_id   Int
-
   content   String?
-
   is_share  Boolean @default(false)
-
   original_post_id  Int? 
-
   createdAt DateTime @default(now())
-
   updatedAt DateTime @updatedAt
-
+  publishedAt DateTime?
   user      User     @relation(fields: [user_id], references: [id])
-
   original_post Post?  @relation("Shares", fields: [original_post_id], references: [id])
-
   shared_posts  Post[]  @relation("Shares")
-
   attachment  Attachment?
 }
 
 
 model Attachment {
   id        Int      @id @default(autoincrement())
-
   type      String
-
   post_id   Int
-
   createdAt DateTime @default(now())
-
   updatedAt DateTime @updatedAt
-
   post      Post    @relation(fields: [post_id], references: [id])
 }

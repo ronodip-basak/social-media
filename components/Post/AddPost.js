@@ -1,4 +1,5 @@
 import { useState } from "react";
+import blobToBase64 from "../../lib/blobToBase64";
 import ImageUpload from "../ImageUpload";
 import Modal from "../utility/Modal";
 import PrimaryButton from "../utility/PrimaryButton";
@@ -16,8 +17,29 @@ export default function AddPost(){
     const submitPost = async (e) => {
         e.preventDefault();
         setLoading(true)
+        const reqBody = {
+            content : postBody
+        }
+        const promise = await fetch('/api/post', {
+            body: JSON.stringify(reqBody),
+            method: "POST"
+        });  
+        
+        const post = await promise.json();
 
-
+        if(uploadedFiles.length > 0){
+            uploadedFiles.forEach( async file => {
+                const b64 = await blobToBase64(file)
+                console.log(b64)
+                const promise = await fetch(`/api/post/${post.id}/attachment`, {
+                    method: 'POST',
+                    body: JSON.stringify({
+                        attachment: b64
+                    })
+                })
+            });
+            
+        }
     }
 
     const uploadFilesToServer = async (e) => {
